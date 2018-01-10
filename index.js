@@ -7,7 +7,7 @@ const uuidv4 = require('uuid/v4')
 const debug = require('debug')('square.test')
 
 const PORT = process.env.PORT || 4000
-let callback = 'https://mmfsquaretest.herokuapp.com:' + PORT
+let callback = process.env.SQUARE_CALLBACK
 const iosCallback = '/ios'
 const androidCallback = '/android'
 const state = uuidv4()
