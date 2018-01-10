@@ -21,7 +21,13 @@ app.listen(PORT, () => {
  * test data
  */
 const file = './data.json'
-const data = require(file)
+const data = fs.existsSync(file) ? require(file) : {
+  oauth: {},
+  locations: [{}],
+  transaction: {},
+  refund: {}
+}
+
 const APP_ID = process.env.SQUARE_APP_ID
 const APP_SECRET = process.env.SQUARE_APP_SECRET
 
