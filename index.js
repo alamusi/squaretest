@@ -7,7 +7,7 @@ const uuidv4 = require('uuid/v4')
 const debug = require('debug')('square.test')
 
 const PORT = process.env.PORT || 4000
-let host = 'http://localhost:' + PORT
+let callback = 'https://mmfsquaretest.herokuapp.com:' + PORT
 const iosCallback = '/ios'
 const androidCallback = '/android'
 const state = uuidv4()
@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
       amount: 100,
       currency_code: 'CAD'
     },
-    callback_url: host + iosCallback,
+    callback_url: callback + iosCallback,
     client_id: APP_ID,
     location_id: data.locations[0].id,
     version: '1.3',
@@ -74,7 +74,7 @@ app.get('/', (req, res) => {
   const android = [
     'i.com.squareup.pos.TOTAL_AMOUNT=100',
     'S.com.squareup.pos.CURRENCY_CODE=CAD',
-    'S.com.squareup.pos.WEB_CALLBACK_URI=' + host + androidCallback,
+    'S.com.squareup.pos.WEB_CALLBACK_URI=' + callback + androidCallback,
     'S.com.squareup.pos.CLIENT_ID=' + APP_ID,
     'S.com.squareup.pos.LOCATION_ID=' + data.locations[0].id,
     'l.com.squareup.pos.AUTO_RETURN_TIMEOUT_MS=3200', // between 3200 and 10000
@@ -120,7 +120,7 @@ app.get('/oauth', (req, res) => {
       client_id: APP_ID,
       client_secret: APP_SECRET,
       code: req.query.code,
-      redirect_uri: host
+      redirect_uri: callback
     },
     json: true
   }
@@ -392,7 +392,7 @@ if (process.env.LOCALTUNNEL === 'true') {
       // let exit = process.exit
     }
     debug('localhost is now tunnelling through', tunnel.url)
-    host = tunnel.url
+    callback = tunnel.url
     // cleanup localtunnel
     process.on('exit', () => {
       tunnel.close()
